@@ -1,6 +1,7 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import '../styles/globals.css'
 
@@ -13,6 +14,10 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+
+  useEffect(()=>{
+    require("bootstrap/dist/js/bootstrap");
+},[])
 
   const getLayout = Component.getLayout || ((page) => page );
 
