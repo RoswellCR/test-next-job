@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Notification, Post } from '../../interfaces/index';
 import axios from 'axios';
 
@@ -29,10 +29,23 @@ const FormDialog:FC<IProps> = (props) => {
 
   const END_POINT = 'https://jsonplaceholder.typicode.com/posts';
 
+  //recover data title
+  useEffect(() => {
+    console.log('use effect '+editObj.title)
+    if (editObj.title) {
+      setValue(editObj.title);
+    }
+  }, [editObj.title])
 
   // UPDATE POST
   const updatePost = async () => {
-    const updateObj = { ...editObj, title: value };
+    const updateObj ={ 
+      title: value,
+      body:'test',
+      userId: 1,
+      id: 1
+      } as Post;
+    //console.log('llega al modal'+ JSON.stringify(updateObj))
     await axios.put(`${END_POINT}/${updateObj.id}`)
     const tempDataApi = [...dataApi];
     const index = tempDataApi.findIndex(post => post.id===updateObj.id);

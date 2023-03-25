@@ -16,7 +16,6 @@ const PostsTable:FC<IProps> = (props) => {
   
     const { setIsOpen, setEditObj, setNotification, dataApi, setDataApi } = props;
 
-    //const [dataApi, setDataApi] = useState<Post[]>([]);
     
     const END_POINT = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -37,6 +36,7 @@ const PostsTable:FC<IProps> = (props) => {
   const updatePost = (id: number) => { 
     setIsOpen(true);
     const item = dataApi.find(post => post.id===id);
+    console.log(item)
     setEditObj(item!);
   }
 
@@ -72,7 +72,7 @@ const PostsTable:FC<IProps> = (props) => {
                 </TableRow>
             </TableHead>
             
-            {dataApi.length===0? <p>Getting Data ...</p>: (
+            {/* {dataApi.length===0? <p>Getting Data ...</p>: ( */}
 
             <TableBody>
                 {dataApi.slice(0,15).map(({id, title}) => (
@@ -96,7 +96,8 @@ const PostsTable:FC<IProps> = (props) => {
                 ))}
             </TableBody>
 
-            )}
+            {/* ) */}
+            {/* } */}
 
             
 
