@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import Head from 'next/head';
 
-import { Navbar } from '../Navbar';
+import { Navbar } from './Navbar';
 
 
 import styles from './MainLayout.module.css';
@@ -17,7 +17,7 @@ export const MainLayout: FC<Props> = ({ children }) => {
           
           <Head>
             <title>Home</title>
-            <meta name="description" content="Home Page" />
+            <meta name="description" content="Home Page Test" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
         

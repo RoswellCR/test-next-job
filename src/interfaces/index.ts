@@ -4,3 +4,8 @@ export interface Post {
     title:  string;
     body:   string;
 }
+
+export interface Notification {
+    msg: string;
+    color: string;
+}
