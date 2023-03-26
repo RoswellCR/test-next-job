@@ -1,4 +1,7 @@
-import * as React from 'react';
+import { FC, useState, useEffect } from 'react';
+
+import axios from 'axios';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,9 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FC, useState, useEffect } from 'react';
 import { Notification, Post } from '../../interfaces/index';
-import axios from 'axios';
 
 
 type IProps = {
@@ -32,7 +33,6 @@ const FormDialog:FC<IProps> = (props) => {
 
   //recover data title
   useEffect(() => {
-    console.log('use effect '+editObj.title)
     if (editObj.title) {
       setValue(editObj.title);
     }
@@ -46,11 +46,10 @@ const FormDialog:FC<IProps> = (props) => {
       userId : 1,
       id: 1
       } as Post;
-    //console.log('llega al modal'+ JSON.stringify(updateObj))
+    
     await axios.put(`${END_POINT}/${newPost.id}`, newPost)
     const tempDataApi = [...dataApi];
     const index = tempDataApi.indexOf(editObj);
-    console.log('indice encontrado en update  '+ index + '  '+ JSON.stringify(editObj))
     tempDataApi[index] = {...editObj, title:value};
     setDataApi(tempDataApi);
 
@@ -89,13 +88,13 @@ const FormDialog:FC<IProps> = (props) => {
   const handleClose = () => {
     setIsOpen(false);
     setValue("");
-    setEditObj({userId: 0, title: "", body: "", id: 0});
+    setEditObj({ userId: 0, title: "", body: "", id: 0 });
   };
 
   const onSubmit = async () => {
-    if(value.trim()===""){
+    if (value.trim() === "") {
       setErrorForm(true);
-      return
+      return;
     }
     setErrorForm(false);
 

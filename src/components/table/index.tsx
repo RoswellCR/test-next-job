@@ -1,6 +1,7 @@
+import { useState, useEffect, FC } from 'react';
+
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import axios from "axios";
-import { useState, useEffect, FC } from 'react';
 import { Notification, Post } from "../../interfaces";
 
 
@@ -36,7 +37,6 @@ const PostsTable:FC<IProps> = (props) => {
   const updatePost = (id: number) => { 
     setIsOpen(true);
     const item = dataApi.filter(post => post.id===id);
-    console.log('lo que mando desde q doy click es ' + JSON.stringify(item))
     setEditObj(item[0]);
   }
 
@@ -55,58 +55,74 @@ const PostsTable:FC<IProps> = (props) => {
   
   
     return (
-        
       <>
-
-        <button onClick={()=>setIsOpen(true)} className="btn btn-primary" type="button">Create Post</button>
-
+        <button
+          onClick={() => setIsOpen(true)}
+          className="btn btn-primary"
+          type="button"
+        >
+          Create Post
+        </button>
 
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-                <TableRow>
-                <TableCell><h2>Title</h2><p><strong>{dataApi.length===0 ? 'searching data ...': 'results found'}</strong></p></TableCell>
-                <TableCell align="right"><h3>Update</h3></TableCell>
-                <TableCell align="right"><h3>Delete</h3></TableCell>
-                </TableRow>
+              <TableRow>
+                <TableCell>
+                  <h2>Title</h2>
+                  <p>
+                    <strong>
+                      {dataApi.length === 0
+                        ? "searching data ..."
+                        : "results found"}
+                    </strong>
+                  </p>
+                </TableCell>
+                <TableCell align="right">
+                  <h3>Update</h3>
+                </TableCell>
+                <TableCell align="right">
+                  <h3>Delete</h3>
+                </TableCell>
+              </TableRow>
             </TableHead>
-            
-            {/* {dataApi.length===0? <p>Getting Data ...</p>: ( */}
 
             <TableBody>
-                {dataApi.slice(0,15).map(({id, title}) => (
+              {dataApi.slice(0, 15).map(({ id, title }) => (
                 <TableRow
-                    key={id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  key={id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                    <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row">
                     {title}
-                    </TableCell>
-                    
-                    <TableCell align="right">
-                    <button onClick={()=>updatePost(id)} type="button" className="btn btn-outline-success">Update</button>
-                    </TableCell>
-                    
-                    <TableCell align="right">
-                    <button onClick={()=>deletePost(id)} type="button" className="btn btn-outline-danger">Delete</button>
-                    </TableCell>
-                    
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <button
+                      onClick={() => updatePost(id)}
+                      type="button"
+                      className="btn btn-outline-success"
+                    >
+                      Update
+                    </button>
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <button
+                      onClick={() => deletePost(id)}
+                      type="button"
+                      className="btn btn-outline-danger"
+                    >
+                      Delete
+                    </button>
+                  </TableCell>
                 </TableRow>
-                ))}
+              ))}
             </TableBody>
-
-            {/* ) */}
-            {/* } */}
-
-            
-
-            </Table>
+          </Table>
         </TableContainer>
-
       </>
-    
-  )
+    );
 }
 
 export default PostsTable

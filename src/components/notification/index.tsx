@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import Toast from 'react-bootstrap/Toast';
+
 import { Notification } from '../../interfaces';
 
 
@@ -33,8 +33,7 @@ const Notification: FC<IProps> = (props) => {
 
     return (
       <div
-      className={`toast border-none ${toastShow} ${notification.color} text-white success align-items-center position-absolute top-0 end-0 m-4`}
-
+        className={`toast border-none ${toastShow} ${notification.color} text-white success align-items-center position-absolute top-0 end-0 m-4`}
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
