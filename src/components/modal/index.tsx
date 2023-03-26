@@ -23,7 +23,7 @@ type IProps = {
 
 const FormDialog:FC<IProps> = (props) => {
   
-  const { setNotification , setIsOpen, isOpen, editObj, setDataApi, setEditObj, dataApi,  } = props;
+  const { setNotification , setIsOpen, isOpen, editObj, setDataApi, setEditObj, dataApi  } = props;
   
   const [value, setValue] = useState<string>("");
 
@@ -39,18 +39,20 @@ const FormDialog:FC<IProps> = (props) => {
 
   // UPDATE POST
   const updatePost = async () => {
-    const updateObj ={ 
-      title: value,
-      body:'test',
-      userId: 1,
+    const newPost = { 
+      title : value,
+      body: 'testing',
+      userId : 1,
       id: 1
       } as Post;
     //console.log('llega al modal'+ JSON.stringify(updateObj))
-    await axios.put(`${END_POINT}/${updateObj.id}`)
+    await axios.put(`${END_POINT}/${newPost.id}`, newPost)
     const tempDataApi = [...dataApi];
-    const index = tempDataApi.findIndex(post => post.id===updateObj.id);
-    tempDataApi[index] = updateObj;
+    const index = tempDataApi.indexOf(editObj);
+    console.log('indice encontrado en update  '+ index + '  '+ JSON.stringify(editObj))
+    tempDataApi[index] = {...editObj, title:value};
     setDataApi(tempDataApi);
+
         setNotification({
           msg: "Post Updated Successfully",
           color: "success",
@@ -62,17 +64,22 @@ const FormDialog:FC<IProps> = (props) => {
         const min = 100;
         const max = 1000;
         const randomNum = Math.floor(Math.random() * (max - min + 1) + min);
-        console.log(randomNum)
+        //console.log(randomNum)
     
-        const post:Post = {
+        const post = {
           title: value,
           body: 'test body empty',
-          id: randomNum,
-          userId: randomNum
+          // id: randomNum,
+          // userId: randomNum
         }
         
         await axios.post(END_POINT, post);
-        setDataApi([post, ...dataApi])
+        setDataApi([{
+          body:post.body,
+          id:randomNum,
+          userId:randomNum,
+          title: post.title
+        }, ...dataApi])
         setNotification({ msg: "Post Added Successfully", color: "success" });
       }    
 

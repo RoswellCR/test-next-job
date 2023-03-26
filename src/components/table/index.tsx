@@ -24,7 +24,7 @@ const PostsTable:FC<IProps> = (props) => {
     const getDataApi = async () =>{
       const {data: res} = await axios.get(END_POINT);
       setDataApi(res);
-      console.log(res);
+      //console.log(res);
     }
     getDataApi();
   
@@ -35,9 +35,9 @@ const PostsTable:FC<IProps> = (props) => {
   // **UPDATE**
   const updatePost = (id: number) => { 
     setIsOpen(true);
-    const item = dataApi.find(post => post.id===id);
-    console.log(item)
-    setEditObj(item!);
+    const item = dataApi.filter(post => post.id===id);
+    console.log('lo que mando desde q doy click es ' + JSON.stringify(item))
+    setEditObj(item[0]);
   }
 
   // **DELETE**
@@ -66,7 +66,7 @@ const PostsTable:FC<IProps> = (props) => {
             
             <TableHead>
                 <TableRow>
-                <TableCell><h1>Title</h1><p>{`${dataApi.length} results found`}</p></TableCell>
+                <TableCell><h2>Title</h2><p><strong>{dataApi.length===0 ? 'searching data ...': 'results found'}</strong></p></TableCell>
                 <TableCell align="right"><h3>Update</h3></TableCell>
                 <TableCell align="right"><h3>Delete</h3></TableCell>
                 </TableRow>

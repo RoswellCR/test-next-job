@@ -11,7 +11,7 @@ import { Post } from '../interfaces';
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [editObj, setEditObj] = useState<Post>({userId: 0, title: "", body: "", id: 0}); // <<check number id>>
+  const [editObj, setEditObj] = useState<Post>({userId: 0, title: "", body: "", id: 0}); // <<initialize>>
   const [notification, setNotification] = useState<Notification>({ msg: "", color: "" });
   const [dataApi, setDataApi] = useState<Post[]>([]);
   
