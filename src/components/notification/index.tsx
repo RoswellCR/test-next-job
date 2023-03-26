@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import Toast from 'react-bootstrap/Toast';
 import { Notification } from '../../interfaces';
 
 
@@ -9,7 +10,7 @@ type IProps = {
 
 const Notification: FC<IProps> = (props) => {
     const { notification, setNotification } = props;
-  
+    console.log('llega la not :  '+notification.msg);
     const [toastShow, setToastShow] = useState<string>("");
   
     useEffect(() => {
@@ -28,15 +29,19 @@ const Notification: FC<IProps> = (props) => {
       setNotification({ msg: "", color: "" });
     };
   
+  
+
     return (
       <div
-        className={`toast border-none ${toastShow} ${notification.color} text-white success align-items-center position-absolute top-0 end-0 m-4`}
+      className={`toast border-none ${toastShow} ${notification.color} text-white success align-items-center position-absolute top-0 end-0 m-4`}
+
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
       >
         <div className="d-flex">
           <div className="toast-body">{notification.msg}</div>
+          {/* <div className="toast-body ">Probando</div> */}
           <div className="d-flex justify-content-end ms-auto notification">
             <button
               type="button"
@@ -49,6 +54,7 @@ const Notification: FC<IProps> = (props) => {
         </div>
       </div>
     );
+  
   };
   
   export default Notification;
