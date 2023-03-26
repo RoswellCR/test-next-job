@@ -26,6 +26,7 @@ const FormDialog:FC<IProps> = (props) => {
   const { setNotification , setIsOpen, isOpen, editObj, setDataApi, setEditObj, dataApi  } = props;
   
   const [value, setValue] = useState<string>("");
+  const [errorForm, setErrorForm ] = useState(false);
 
   const END_POINT = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -92,6 +93,12 @@ const FormDialog:FC<IProps> = (props) => {
   };
 
   const onSubmit = async () => {
+    if(value.trim()===""){
+      setErrorForm(true);
+      return
+    }
+    setErrorForm(false);
+
     if (editObj.title) {
       await updatePost();
     } else {
@@ -107,7 +114,7 @@ const FormDialog:FC<IProps> = (props) => {
         <DialogTitle>{editObj.title ? "Update Post" : "Add New Post"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-             try not to leave the field empty
+             {errorForm ? <p style={{color:'red'}}>you cannot leave the field empty</p> : 'write the title of the post'}
           </DialogContentText>
           <TextField
             autoFocus

@@ -10,7 +10,7 @@ type IProps = {
 
 const Notification: FC<IProps> = (props) => {
     const { notification, setNotification } = props;
-    console.log('llega la not :  '+notification.msg);
+    
     const [toastShow, setToastShow] = useState<string>("");
   
     useEffect(() => {
